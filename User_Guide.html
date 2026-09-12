@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp CRM & Automation - Professional User Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #25d366;
+            --primary-dark: #128c7e;
+            --secondary: #34b7f1;
+            --dark: #075e54;
+            --bg-light: #f8f9fa;
+            --text-main: #1c1e21;
+            --text-muted: #606770;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-main);
+            background-color: var(--bg-light);
+            margin: 0;
+            padding: 0;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin: 0;
+            font-weight: 800;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 20px auto 0;
+        }
+
+        .main-container {
+            max-width: 1100px;
+            margin: -60px auto 60px;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            padding: 50px;
+        }
+
+        .nav-summary {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+        }
+
+        .nav-item {
+            background: #f0f2f5;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-item:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: var(--dark);
+            border-left: 6px solid var(--primary);
+            padding-left: 20px;
+            margin-top: 60px;
+            margin-bottom: 30px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .info-card {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 15px;
+            padding: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .info-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .info-card h3 {
+            margin: 0 0 15px;
+            color: var(--dark);
+        }
+
+        .step-list {
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .step-list li {
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 15px;
+        }
+
+        .step-list li::before {
+            content: '\f058';
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
+        .logic-flow {
+            background: #f0f7f4;
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 40px;
+        }
+
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .node {
+            background: white;
+            border: 2px solid var(--primary);
+            padding: 20px;
+            border-radius: 12px;
+            width: 160px;
+            font-weight: 700;
+            color: var(--dark);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .arrow {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--dark);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .code-snippet {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--text-muted);
+            background: white;
+            border-top: 1px solid #eee;
+        }
+
+        @media (max-width: 768px) {
+            .flow-diagram {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .arrow {
+                transform: rotate(90deg);
+            }
+            .main-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <h1>Enterprise WhatsApp CRM</h1>
+        <p>Your comprehensive guide to mastering communication, automation, and broadcasting through the Meta WhatsApp Business API.</p>
+    </section>
+
+    <div class="main-container">
+        
+        <div class="nav-summary">
+            <a href="#setup" class="nav-item">API Setup</a>
+            <a href="#contacts" class="nav-item">Contact Management</a>
+            <a href="#broadcast" class="nav-item">Bulk Broadcast</a>
+            <a href="#automation" class="nav-item">Automation</a>
+            <a href="#media" class="nav-item">Media & Analytics</a>
+        </div>
+
+        <section id="setup">
+            <h2><i class="fas fa-key"></i> System Initialization & Setup</h2>
+            <p>To begin using the CRM, you must configure your Meta Developer credentials in the environment settings.</p>
+            <div class="card-grid">
+                <div class="info-card">
+                    <i class="fas fa-cog"></i>
+                    <h3>Configuration</h3>
+                    <ul class="step-list">
+                        <li>Locate the <code>.env</code> file in the root directory.</li>
+                        <li>Insert your <b>Permanent Access Token</b>.</li>
+                        <li>Provide your <b>Phone Number ID</b> from Meta Dashboard.</li>
+                        <li>Set a unique <b>Verify Token</b> for webhook security.</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-link"></i>
+                    <h3>Webhook Integration</h3>
+                    <ul class="step-list">
+                        <li>Expose your local server using Ngrok (Port 8000).</li>
+                        <li>Configure the Callback URL in Meta: <code>https://your-url.ngrok.app/webhook/</code>.</li>
+                        <li>Subscribe to <b>"messages"</b> in the Webhook fields.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="logic-flow">
+            <h2><i class="fas fa-project-diagram"></i> Core Program Logic Flow</h2>
+            <div class="logic-flow">
+                <p>Understanding how data moves between the User, Meta, and your CRM Dashboard.</p>
+                
+                <div class="flow-diagram">
+                    <div class="node">Customer<br><small>Mobile Device</small></div>
+                    <div class="arrow"><i class="fas fa-chevron-right"></i></div>
+                    <div class="node">Meta Cloud<br><small>WhatsApp API</small></div>
+                    <div class="arrow"><i class="fas fa-chevron-right"></i></div>
+                    <div class="node">FastAPI App<br><small>Your Server</small></div>
+                    <div class="arrow"><i class="fas fa-chevron-right"></i></div>
+                    <div class="node">CRM Database<br><small>SQLite (DB)</small></div>
+                </div>
+
+                <div class="card-grid">
+                    <div class="info-card">
+                        <span class="badge">INBOUND</span>
+                        <h3>Message Reception</h3>
+                        <p>When a customer sends a message, Meta triggers your Webhook. The system creates the contact if new and stores the message in the database for real-time viewing.</p>
+                    </div>
+                    <div class="info-card">
+                        <span class="badge">AUTOMATION</span>
+                        <h3>Keyword Processing</h3>
+                        <p>After storing, the system parses the message against active <b>Automation Rules</b>. If a keyword is matched, an instant reply is sent via the WhatsApp API.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacts">
+            <h2><i class="fas fa-user-friends"></i> Contact Management</h2>
+            <p>Efficiently manage your audience through multiple entry points.</p>
+            <div class="card-grid">
+                <div class="info-card">
+                    <i class="fas fa-plus-circle"></i>
+                    <h3>Single Entry</h3>
+                    <p>Use the <b>(+)</b> icon to manually add a single contact with a specific name and tag.</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-file-csv"></i>
+                    <h3>Bulk CSV Import</h3>
+                    <p>Upload large contact lists using the <b>Import</b> icon. Ensure your CSV has columns for <code>phone</code>, <code>name</code>, and <code>tags</code>.</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-trash-alt"></i>
+                    <h3>Contact Deletion</h3>
+                    <p>Select a contact and use the <b>Trash</b> icon in the chat header to perform a soft-delete from your CRM view.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="broadcast">
+            <h2><i class="fas fa-bullhorn"></i> Bulk Broadcast Marketing</h2>
+            <div class="info-card" style="border-left: 6px solid var(--secondary);">
+                <p>Reach your entire audience or specific segments in one click using Meta Approved Templates.</p>
+                <ul class="step-list">
+                    <li>Click the <b>Megaphone</b> icon in the sidebar.</li>
+                    <li>Enter the approved <b>Template Name</b> (e.g., <code>welcome_offer</code>).</li>
+                    <li>Apply a <b>Tag Filter</b> (e.g., <code>Customer</code>) to target specific groups.</li>
+                    <li>The system loops through matching contacts and delivers the template message.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="media">
+            <h2><i class="fas fa-chart-pie"></i> Media Support & Analytics</h2>
+            <div class="card-grid">
+                <div class="info-card">
+                    <i class="fas fa-paperclip"></i>
+                    <h3>Rich Media</h3>
+                    <p>Send Images and PDF Documents. Click the <b>Paperclip</b> icon, provide the file URL, and the system handles the API delivery.</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Real-time Analytics</h3>
+                    <p>Access the <b>Analytics</b> icon to view key performance indicators: Total Contacts, Message Ratios, and Inbound vs Outbound volume.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="meta-dash">
+            <h2><i class="fab fa-facebook"></i> Meta Dashboard Operations</h2>
+            <div class="logic-flow" style="background: #fff8e1;">
+                <h3>Message Template Creation</h3>
+                <p>Templates must be approved by Meta before they can be sent via this CRM.</p>
+                <ol>
+                    <li>Log in to <a href="https://business.facebook.com/" target="_blank">Meta Business Suite</a>.</li>
+                    <li>Navigate to <b>All Tools</b> > <b>WhatsApp Manager</b> > <b>Message Templates</b>.</li>
+                    <li>Click <b>Create Template</b> and choose your category (Marketing, Utility, or Authentication).</li>
+                    <li>Define your body text and use <code>{{1}}</code>, <code>{{2}}</code> for dynamic variables.</li>
+                    <li>Once <b>Approved</b>, copy the Template Name for use in the CRM Dashboard.</li>
+                </ol>
+            </div>
+        </section>
+
+        <section id="troubleshooting">
+            <h2><i class="fas fa-exclamation-triangle"></i> Troubleshooting & Best Practices</h2>
+            <div class="card-grid">
+                <div class="info-card" style="border-left: 6px solid #ff4444;">
+                    <h3>Common Issues</h3>
+                    <ul class="step-list">
+                        <li><b>Token Expired:</b> If messages stop sending, check if your Temporary Access Token has expired. Use a Permanent Token for production.</li>
+                        <li><b>Webhook Not Receiving:</b> Ensure your Ngrok URL is active and matches the URL in Meta's Webhook configuration.</li>
+                        <li><b>Template Error:</b> Verify that the template name and language code in the CRM exactly match the ones approved by Meta.</li>
+                    </ul>
+                </div>
+                <div class="info-card" style="border-left: 6px solid #4CAF50;">
+                    <h3>Best Practices</h3>
+                    <ul class="step-list">
+                        <li><b>Privacy:</b> Your data is stored locally in <code>whatsapp_crm.db</code>. Never share this file or your <code>.env</code> file.</li>
+                        <li><b>Rate Limiting:</b> When broadcasting to thousands, Meta may limit speed. The system handles this, but avoid sending identical marketing spam to unverified numbers.</li>
+                        <li><b>Backups:</b> Periodically back up your SQLite database file to prevent data loss.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Enterprise WhatsApp CRM System. All rights reserved.</p>
+        <p>Developed for high-performance business automation.</p>
+    </footer>
+
+</body>
+</html>

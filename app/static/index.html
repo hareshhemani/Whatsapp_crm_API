@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp CRM Dashboard</title>
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="user-profile"></div>
+                <div class="header-actions">
+                    <i class="fas fa-plus" id="add-contact-btn" title="Add Single Contact" style="cursor: pointer;"></i>
+                    <i class="fas fa-chart-line" id="show-stats-btn" title="Analytics Dashboard" style="cursor: pointer;"></i>
+                    <i class="fas fa-file-import" id="import-contacts-btn" title="Import Contacts (CSV)" style="cursor: pointer;"></i>
+                    <i class="fas fa-bullhorn" id="broadcast-btn" title="Bulk Broadcast" style="cursor: pointer;"></i>
+                    <i class="fas fa-robot" id="automation-rules-btn" title="Automation Rules" style="cursor: pointer;"></i>
+                </div>
+                <input type="file" id="csv-file-input" style="display: none;" accept=".csv">
+            </div>
+            <div class="search-container">
+                <input type="text" class="search-bar" placeholder="Search or start new chat">
+            </div>
+            <div class="contact-list" id="contact-list">
+                <!-- Contacts will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Chat Area -->
+        <div class="chat-area">
+            <div class="chat-header">
+                <div class="contact-avatar" id="current-contact-avatar">?</div>
+                <div class="contact-info">
+                    <div class="contact-name" id="current-contact-name">Select a contact</div>
+                    <div class="contact-tags" id="current-contact-tags" style="font-size: 0.75rem; color: var(--primary); font-weight: bold;"></div>
+                    <div class="contact-last-msg" id="current-contact-status">Click on a contact to start chatting</div>
+                </div>
+                <div class="chat-header-actions" id="chat-header-actions" style="display: none; margin-left: auto;">
+                    <i class="fas fa-trash" id="delete-contact-btn" title="Delete Contact" style="cursor: pointer; color: #ff4444; margin-right: 15px;"></i>
+                </div>
+            </div>
+            <div class="messages-container" id="messages-container">
+                <!-- Messages will be loaded here -->
+            </div>
+            <div class="chat-input-area">
+                <i class="far fa-smile"></i>
+                <i class="fas fa-paperclip"></i>
+                <i class="fas fa-file-alt" id="template-btn" title="Send Template" style="cursor: pointer; color: var(--text-muted); font-size: 1.2rem;"></i>
+                <input type="text" class="chat-input" id="message-input" placeholder="Type a message">
+                <button class="send-btn" id="send-btn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Template Modal -->
+    <div id="template-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Send WhatsApp Template</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Template Name (from Meta)</label>
+                    <input type="text" id="tpl-name" placeholder="e.g. hello_world">
+                </div>
+                <div class="form-group">
+                    <label>Language Code</label>
+                    <input type="text" id="tpl-lang" value="en_US">
+                </div>
+                <div class="form-group">
+                    <label>Variables (Comma separated, optional)</label>
+                    <input type="text" id="tpl-vars" placeholder="Var1, Var2...">
+                </div>
+                <button class="primary-btn" id="confirm-send-template">Send Template</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Broadcast Modal -->
+    <div id="broadcast-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Bulk Broadcast</h3>
+                <span class="close-modal-bc">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Select a template to send to ALL contacts.</p>
+                <div class="form-group">
+                    <label>Template Name</label>
+                    <input type="text" id="bc-tpl-name" placeholder="e.g. welcome_offer">
+                </div>
+                <div class="form-group">
+                    <label>Language Code</label>
+                    <input type="text" id="bc-tpl-lang" value="en_US">
+                </div>
+                <div class="form-group">
+                    <label>Tag Filter (Leave empty for all)</label>
+                    <input type="text" id="bc-tag-filter" placeholder="e.g. Customer">
+                </div>
+                <button class="primary-btn" id="confirm-broadcast">Start Broadcast</button>
+                <div id="bc-progress" style="margin-top: 10px; font-weight: bold; color: var(--primary);"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Automation Rules Modal -->
+    <div id="automation-modal" class="modal">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h3>Automation Rules</h3>
+                <span class="close-modal-auto">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="rules-list" id="rules-list" style="max-height: 300px; overflow-y: auto; margin-bottom: 20px;">
+                    <!-- Rules will be listed here -->
+                </div>
+                <hr>
+                <h4>Add New Rule</h4>
+                <div class="form-group">
+                    <label>Keyword (Incoming message contains this)</label>
+                    <input type="text" id="auto-keyword" placeholder="e.g. Price">
+                </div>
+                <div class="form-group">
+                    <label>Auto Reply Text</label>
+                    <textarea id="auto-response" placeholder="e.g. Our basic plan starts at $50." rows="3" style="width: 100%; border-radius: 8px; padding: 10px; border: 1px solid #ddd;"></textarea>
+                </div>
+                <button class="primary-btn" id="save-rule">Save Rule</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Contact Modal -->
+    <div id="add-contact-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Contact</h3>
+                <span class="close-modal-add">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Phone Number (with country code)</label>
+                    <input type="text" id="add-phone" placeholder="e.g. 919876543210">
+                </div>
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="add-name" placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label>Tags (Optional)</label>
+                    <input type="text" id="add-tags" placeholder="Customer, Lead">
+                </div>
+                <button class="primary-btn" id="confirm-add-contact">Add Contact</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Analytics Modal -->
+    <div id="stats-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Analytics Dashboard</h3>
+                <span class="close-modal-stats">&times;</span>
+            </div>
+            <div class="modal-body" id="stats-content">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: center;">
+                    <div style="background: #f0f9ff; padding: 20px; border-radius: 10px;">
+                        <h2 id="stat-total-contacts">0</h2>
+                        <p>Total Contacts</p>
+                    </div>
+                    <div style="background: #f0fff4; padding: 20px; border-radius: 10px;">
+                        <h2 id="stat-total-msgs">0</h2>
+                        <p>Total Messages</p>
+                    </div>
+                    <div style="background: #fffaf0; padding: 20px; border-radius: 10px;">
+                        <h2 id="stat-inbound">0</h2>
+                        <p>Incoming</p>
+                    </div>
+                    <div style="background: #fff5f5; padding: 20px; border-radius: 10px;">
+                        <h2 id="stat-outbound">0</h2>
+                        <p>Outgoing</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="static/app.js"></script>
+</body>
+</html>
