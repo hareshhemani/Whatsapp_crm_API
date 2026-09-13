@@ -57,16 +57,12 @@ To receive messages in real-time:
 *   `app/static/`: Frontend dashboard (HTML, CSS, JS).
 *   `whatsapp_crm.db`: Local SQLite database.
 
-## 📄 License
-This project is designed for professional enterprise use. All data is stored locally in your SQLite database for maximum privacy.
-
-
-
 ## 👨‍💻 Developer & Credits
 
 * **Developer:** Haresh Kumar Hemani
 * **Website:** [www.taxonline24.in](https://www.taxonline24.in)
 * **Email:** [contact@taxonline24.in](mailto:contact@taxonline24.in)
 
-
+## 📄 License
+This project is designed for professional enterprise use. All data is stored locally in your SQLite database for maximum privacy.
 
